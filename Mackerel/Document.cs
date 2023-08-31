@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,10 +56,17 @@ public class Document
 
     internal bool Defines(string key) => _env.ContainsKey(key);
 
-    internal void Include(string text)
+    internal void Include(params string[] paths)
     {
-        if (File.Exists(text))
-            _buffers[_buffer]!.Append(File.ReadAllText(text));
+        if (_buffer < 0)
+            return;
+
+        if (_buffers[_buffer] is null)
+            _buffers[_buffer] = new StringBuilder();
+
+        foreach (var path in paths)
+            if (File.Exists(path))
+                _buffers[_buffer]!.AppendLine(File.ReadAllText(path));
     }
 
     internal void Indent(int indent)

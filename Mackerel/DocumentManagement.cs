@@ -43,18 +43,14 @@ public static partial class Macro
         (in Document ctx) => !ctx.Defines(name) ? then(in ctx) : alt(in ctx);
 
     public static Instruction Include(params string[] paths) =>
-    (in Document _) =>
-    {
-        var included = new StringBuilder();
+        (in Document doc) =>
+        {
+            doc.Include(paths);
+            return "";
+        }
 
-        foreach (var path in paths)
-            if (File.Exists(path))
-                included.AppendLine(File.ReadAllText(path));
-
-        return included.ToString();
-    };
-
-    public static Instruction Indent(int count) =>
+    
+        public static Instruction Indent(int count) =>
         (in Document ctx) =>
         {
             ctx.Indent(count);
