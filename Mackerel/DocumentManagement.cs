@@ -50,7 +50,7 @@ public static partial class Macro
         }
 
     
-        public static Instruction Indent(int count) =>
+    public static Instruction Indent(int count) =>
         (in Document ctx) =>
         {
             ctx.Indent(count);
@@ -85,6 +85,13 @@ public static partial class Macro
             return "";
         };
 
+    public static Instruction Write(string text) =>
+        (in Document ctx) =>
+        {
+            ctx.Write(text);
+            return "";
+        };
+
     public static Instruction Write(params Instruction[] text) =>
         (in Document ctx) =>
         {
@@ -99,6 +106,15 @@ public static partial class Macro
         {
             foreach (var str in text)
                 ctx.Write(str);
+
+            return "";
+        };
+
+    public static Instruction WriteLine(string text) =>
+        (in Document ctx) =>
+        {
+            ctx.Write(text);
+            ctx.Write(Environment.NewLine);
 
             return "";
         };

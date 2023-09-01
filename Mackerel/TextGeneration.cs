@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Mackerel;
@@ -16,9 +17,15 @@ public static partial class Macro
         SlidingExpiration = TimeSpan.FromMinutes(1)
     };
 
+    private static readonly Regex Whitespace = WhitespaceRegex();
+
     public static string Empty(in Document _) => "";
 
     public static Instruction Str(object value) => (in Document _) => value.ToString() ?? "";
+
+    public static Instruction LongText(string text) =>
+        (in Document _) => 
+            Whitespace.Replace(text.Replace(Environment.NewLine, " "), " ").Trim();
 
     public static Instruction Text(string text)
     {
@@ -31,4 +38,7 @@ public static partial class Macro
 
         return instr;
     }
+
+    [GeneratedRegex(@"\s+")]
+    private static partial Regex WhitespaceRegex();
 }
