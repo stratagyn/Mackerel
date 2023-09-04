@@ -525,37 +525,13 @@ public static partial class MackerelTests
         }
 
         [Fact]
-        public void Write_String_Macro_Empty_Macros_Is_Empty_Text()
-        {
-            var doc = new Document(1);
-            var expected = "";
-            var actual = Block(
-                Write(Array.Empty<string>()),
-                Read())(in doc);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
         public void Write_String_Macro_Is_Written_Text()
         {
             var doc = new Document(1);
             var expected = "HELLOWORLD";
             var actual = Block(
-                Write(Text("HELLO")),
-                Write(Text("WORLD")),
-                Read())(in doc);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void Write_Macro_Macro_Empty_Macros_Is_Empty_Text()
-        {
-            var doc = new Document(1);
-            var expected = "";
-            var actual = Block(
-                Write(Array.Empty<Instruction>()),
+                Write("HELLO"),
+                Write("WORLD"),
                 Read())(in doc);
 
             Assert.Equal(expected, actual);
@@ -601,12 +577,12 @@ public static partial class MackerelTests
         }
 
         [Fact]
-        public void WriteLine_String_Macro_Empty_Macros_Is_NewLine()
+        public void WriteLine_Macro_Empty_Is_NewLine()
         {
             var doc = new Document(1);
             var expected = Environment.NewLine;
             var actual = Block(
-                WriteLine(Array.Empty<string>()),
+                WriteLine(),
                 Read())(in doc);
 
             Assert.Equal(expected, actual);
@@ -620,18 +596,6 @@ public static partial class MackerelTests
             var actual = Block(
                 WriteLine(Text("HELLO")),
                 Write(Text("WORLD")),
-                Read())(in doc);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void WriteLine_Macro_Macro_Empty_Macros_Is_Empty_Text()
-        {
-            var doc = new Document(1);
-            var expected = Environment.NewLine;
-            var actual = Block(
-                WriteLine(Array.Empty<Instruction>()),
                 Read())(in doc);
 
             Assert.Equal(expected, actual);

@@ -15,6 +15,9 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Mackerel</Title>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <ApplicationIcon>Stratagyn Logo.ico</ApplicationIcon>
+    <Version>1.1.0</Version>
+    <PackageIcon>Stratagyn Logo.png</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +26,17 @@
 
   <ItemGroup>
     <Folder Include="docs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\..\..\OneDrive\Pictures\Stratagyn Logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

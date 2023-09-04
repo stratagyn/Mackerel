@@ -47,7 +47,7 @@ public static partial class Macro
         {
             doc.Include(paths);
             return "";
-        }
+        };
 
     
     public static Instruction Indent(int count) =>
@@ -92,21 +92,18 @@ public static partial class Macro
             return "";
         };
 
-    public static Instruction Write(params Instruction[] text) =>
+    public static Instruction Write(Instruction instr) =>
         (in Document ctx) =>
         {
-            foreach (var str in text)
-                ctx.Write(str(in ctx));
+            ctx.Write(instr(in ctx));
 
             return "";
         };
 
-    public static Instruction Write(IEnumerable<string> text) =>
+    public static Instruction WriteLine() =>
         (in Document ctx) =>
         {
-            foreach (var str in text)
-                ctx.Write(str);
-
+            ctx.Write(Environment.NewLine);
             return "";
         };
 
@@ -119,28 +116,11 @@ public static partial class Macro
             return "";
         };
 
-    public static Instruction WriteLine(params Instruction[] text) =>
+    public static Instruction WriteLine(Instruction instr) =>
         (in Document ctx) =>
         {
-            if (text.Length == 0)
-            {
-                ctx.Write(Environment.NewLine);
-                return "";
-            }
 
-            foreach (var str in text)
-            {
-                ctx.Write(str(in ctx));
-                ctx.Write(Environment.NewLine);
-            }
-
-            return "";
-        };
-
-    public static Instruction WriteLine(IEnumerable<string> text) =>
-        (in Document ctx) =>
-        {
-            ctx.Write(string.Join(Environment.NewLine, text));
+            ctx.Write(instr(in ctx));
             ctx.Write(Environment.NewLine);
 
             return "";
