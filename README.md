@@ -154,7 +154,7 @@ var lorem = Block(
                             may golf Thranduil. All right, then. Keep your 
                             secrets. Goblins adjusted diversion form loses darkness.
                         """)
-                    ),
+                    )),
                     HTML.ITag("h2", "Chest clot-head's deserted World secrets poring?"),
                     HTML.FTag("p", Write(LongText(
                         """
@@ -164,7 +164,7 @@ var lorem = Block(
                             stupidity! Sorceress ceases tilled Samwise delays  
                             abyss walks amaze remarked 17?"
                         """)
-                    ),
+                    )),
                     HTML.ITag("h2", "Hill legions inspection Haldir solitary yearns bitterness."),
                     HTML.FTag("p", Write(LongText(
                         """
@@ -173,7 +173,7 @@ var lorem = Block(
                             appearances hmm Mereth guessed licensed. Lessened 
                             Esgaroth paws.
                         """)
-                    ),
+                    )),
                     HTML.FTag("ul",
                         Join(
                             Environment.NewLine,
@@ -187,7 +187,8 @@ var lorem = Block(
                 )
             )
         )
-    )
+    ),
+    Read()
 )
 
 var doc = new Document();
