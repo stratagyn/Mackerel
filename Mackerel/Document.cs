@@ -12,10 +12,11 @@ public class Document
 {
     public static readonly Document Empty = new();
 
-    private const int DEFAULT_BUFFER_COUNT = 10;
+    private const int DEFAULT_BUFFER_COUNT = 2;
 
     private readonly IDictionary<string, object> _env;
-    private readonly StringBuilder?[] _buffers;
+    private readonly IDictionary<int, StringBuilder> _buffers;
+    private readonly int _bufferCapacity;
     private int _buffer;
     private int _indent;
 
@@ -23,18 +24,27 @@ public class Document
     {
         _env = new Dictionary<string, object>();
 
-        _buffers = new StringBuilder?[bufferCount < 1 ? DEFAULT_BUFFER_COUNT : bufferCount];
-        _buffer = 0;
-        _indent = 0;
+        _buffers = new Dictionary<int, StringBuilder>(
+                bufferCount < 0 
+                    ? DEFAULT_BUFFER_COUNT 
+                    : Math.Min(bufferCount, DEFAULT_BUFFER_COUNT));
 
+        _buffer = 0;
+        _bufferCapacity = bufferCount < 0 ? DEFAULT_BUFFER_COUNT : bufferCount;
+        _indent = 0;
     }
 
     public Document(IEnumerable<KeyValuePair<string, object>> env, int bufferCount = DEFAULT_BUFFER_COUNT)
     {
         _env = new Dictionary<string, object>(env);
 
-        _buffers = new StringBuilder?[bufferCount < 1 ? DEFAULT_BUFFER_COUNT : bufferCount];
+        _buffers = new Dictionary<int, StringBuilder>(
+                bufferCount < 0
+                    ? DEFAULT_BUFFER_COUNT
+                    : Math.Min(bufferCount, DEFAULT_BUFFER_COUNT));
+
         _buffer = 0;
+        _bufferCapacity = bufferCount < 0 ? DEFAULT_BUFFER_COUNT : bufferCount;
         _indent = 0;
     }
 
@@ -43,7 +53,7 @@ public class Document
         _env.Clear();
 
         foreach (var builder in _buffers)
-            builder?.Clear();
+            builder.Value.Clear();
 
         _buffer = 0;
     }
@@ -83,8 +93,8 @@ public class Document
         var read = new StringBuilder();
 
         foreach (var buffer in buffers)
-            if (buffer >= 0 && buffer < _buffers.Length)
-                read.Append(_buffers[buffer]?.ToString() ?? "");
+            if (_buffers.TryGetValue(buffer, out var builder))
+                read.Append(builder);
         
         return read.ToString();
     }
@@ -97,8 +107,8 @@ public class Document
         var read = new StringBuilder();
 
         foreach (var buffer in buffers)
-            if (buffer >= 0 && buffer < _buffers.Length)
-                read.AppendLine(_buffers[buffer]?.ToString() ?? "");
+            if (_buffers.TryGetValue(buffer, out var builder))
+                read.AppendLine(builder.ToString());
 
         return read.ToString();
     }
@@ -136,13 +146,13 @@ public class Document
     {
         if (_buffer < 0)
             return;
-        else if (_buffers[_buffer] is null)
+        else if (!_buffers.ContainsKey(_buffer))
             _buffers[_buffer] = new StringBuilder(value.PadLeft(value.Length + _indent));
         else
             _buffers[_buffer]!.Append(value.PadLeft(value.Length + _indent));
     }
 
     internal void WriteTo(int buffer) =>
-        _buffer = buffer < 0 || buffer >= _buffers.Length ? -1 : buffer;
+        _buffer = buffer < 0 || buffer >= _bufferCapacity ? -1 : buffer;
     
 }

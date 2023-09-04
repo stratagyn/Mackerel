@@ -34,7 +34,7 @@ public static partial class MackerelTests
         [Fact]
         public void Block_Macro_Returns_Last_Macro_Text()
         {
-            var doc = new Document();
+            var doc = new Document(3);
             var expected = "WORLD";
             var actual = Block(
                 Buffer(0),

@@ -44,7 +44,7 @@ Instruction Str(object value)
 
 ## Environment
 
-Retrieves the value associated with `name` in a document's environment and converts it to a `string`. If `name` is not defined, nothing happens. The returning instruction expands to the result of calling `ToString` on the associated value or the empty string.
+Retrieves the value associated with `name` in a document's environment and converts it to a `string`. If `name` is not defined, nothing happens. The returned instruction expands to the result of calling `ToString` on the associated value or the empty string.
 
 ```cs
 Instruction Get(string name)
@@ -175,7 +175,7 @@ Instruction Include(params string[] paths);
 
 <br>
 
-Concatenates the content of all valid buffers in `buffers`. The returned instruction expands to the concatenated text or empty string. 
+Concatenates the content of all valid buffers in `buffers`. If no `buffers` is empty, the last written to buffer is used. The returned instruction expands to the concatenated text or empty string. 
 
 ```cs
 Instruction Read(params int[] buffers);
@@ -186,7 +186,7 @@ Instruction Read(params int[] buffers);
 Concatenates the content of all valid buffers in `buffers` with a new line. The returned instruction expands to the concatenated text or empty string. 
 
 ```cs
-Instruction ReadLines(params int[] buffers);
+Instruction ReadLine(params int[] buffers);
 ```
 
 <br>
