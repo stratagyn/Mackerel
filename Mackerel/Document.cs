@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mackerel;
 
-public class Document
+public sealed class Document
 {
     public static readonly Document Empty = new();
 

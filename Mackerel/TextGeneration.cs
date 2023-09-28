@@ -12,7 +12,7 @@ public static partial class Macro
 {
     private static readonly MemoryCache _ConstantCache = MemoryCache.Default;
 
-    private static readonly CacheItemPolicy _CacheItemPolicy = new CacheItemPolicy()
+    private static readonly CacheItemPolicy _CacheItemPolicy = new()
     {
         SlidingExpiration = TimeSpan.FromMinutes(1)
     };
@@ -26,6 +26,15 @@ public static partial class Macro
     public static Instruction LongText(string text) =>
         (in Document _) => 
             Whitespace.Replace(text.Replace(Environment.NewLine, " "), " ").Trim();
+
+    public static Instruction Open(string path) =>
+        (in Document doc) =>
+        {
+            if (!File.Exists(path))
+                return "";
+
+            return File.ReadAllText(path);
+        };
 
     public static Instruction Text(string text)
     {

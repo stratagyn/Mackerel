@@ -1,5 +1,8 @@
 # `Mackerel`
 
+![](https://img.shields.io/badge/passing-true-green)
+![](https://img.shields.io/badge/coverage-96.5%25-green)
+
 `Mackerel` is a small functional macro processor library with support for state management and multiple output buffers. It can be used to generate, alter, and/or format text in a systematic way.
 
 ## Install
@@ -17,7 +20,11 @@ Refer to articles in [docs](https://github.com/stratagyn/Mackerel/tree/master/do
 ## Example: HTMLGenerator
 
 ```cs
-using Attrs = IDictionary<string, string>;
+using Mackerel;
+
+using static Mackerel.Macro;
+
+using Attrs = IDictionary<string, object>;
 
 public static class HTML
 {
@@ -134,7 +141,7 @@ We get
 
 <br>
 
-```
+```cs
 var lorem = Block(
     WriteLine("<!DOCTYPE html>"),
     HTML.FTag("html",
@@ -144,7 +151,7 @@ var lorem = Block(
             ),
             WriteLine(),
             HTML.FTag("body", 
-                new Dictionary<string, string>() { ["style"] = ["width: 100%;"]}
+                new Dictionary<string, object>() { ["style"] = "width: 100%;"}
                 Join(
                     Environment.NewLine,
                     HTML.ITag("h1", "Gravy piety Nazgûl knocking what about?"),
