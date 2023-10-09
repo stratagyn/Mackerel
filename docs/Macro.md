@@ -1,8 +1,8 @@
 # `Macro`
 
-Provides methods managing the state of, as well as, generating, altering, and formatting text within a `Document` instance. Each method is either an `Instruction` or returns an `Instruction`.
+Provides methods for managing the state of, as well as, generating, altering, and formatting text within a `Document` instance. Each method is either an `Instruction` or returns an `Instruction`.
 
-An `Instruction` is defined by the delegate as a function that optionally alters and/or produces text.
+An `Instruction` is defined as a function that optionally alters and/or produces text.
 
 
 ```cs
