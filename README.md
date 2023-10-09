@@ -10,7 +10,7 @@
 Library can be installed via the nuget package manager in Visual Studio or
 
 ```
-dotnet add package Mackerel --version 1.0.0
+dotnet add package Mackerel
 ```
 
 ## Documentation
