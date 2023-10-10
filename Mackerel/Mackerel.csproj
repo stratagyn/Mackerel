@@ -15,7 +15,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Mackerel</Title>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <PackageIcon>Stratagyn Logo.png</PackageIcon>
   </PropertyGroup>
 

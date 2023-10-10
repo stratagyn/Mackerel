@@ -9,7 +9,7 @@ public static partial class Macro
 
    private static readonly CacheItemPolicy _CacheItemPolicy = new()
    {
-      SlidingExpiration = TimeSpan.FromMinutes(1)
+      SlidingExpiration = TimeSpan.FromSeconds(10)
    };
 
    private static readonly Regex Whitespace = WhitespaceRegex();

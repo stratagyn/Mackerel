@@ -17,6 +17,8 @@ dotnet add package Mackerel
 
 Refer to articles in [docs](https://github.com/stratagyn/Mackerel/tree/master/docs) for a full list of predefined instructions.
 
+[Implementing `m4` Wikipedia Example-with-`Mackerel`](https://medium.com/@stratagyn/implementing-m4-wikipedia-example-with-mackerel-5a86fce76aa1)
+
 ## Example: HTMLGenerator
 
 ```cs
